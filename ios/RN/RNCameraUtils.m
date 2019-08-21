@@ -143,7 +143,10 @@
     videoImage = [temporaryContext createCGImage:ciImage fromRect:boundingRect];
     CGRect croppedSize = AVMakeRectWithAspectRatioInsideRect(previewSize, boundingRect);
     CGImageRef croppedCGImage = CGImageCreateWithImageInRect(videoImage, croppedSize);
-    UIImage *image = [[UIImage alloc] initWithCGImage:croppedCGImage];
+    // HACKED IN TO MAKE FACE DETECTION WORK
+    // See: https://github.com/react-native-community/react-native-camera/issues/2349
+    UIImage *image = [[UIImage alloc] initWithCGImage:videoImage];
+    // UIImage *image = [[UIImage alloc] initWithCGImage:croppedCGImage];
     CGImageRelease(videoImage);
     CGImageRelease(croppedCGImage);
     return image;
